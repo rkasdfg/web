@@ -1,0 +1,12 @@
+/target
+
+.project
+
+.classpath
+
+/.settings
+/.externalToolBuilders
+
+.externalToolBuilders
+
+/src/main/webapp/.htaccess

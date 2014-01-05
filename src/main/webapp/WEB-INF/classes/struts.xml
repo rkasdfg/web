@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+    
+<struts>
+	<package name="com.bench4q.action" extends="struts-default" namespace="/">
+      <global-results>
+			<result name="userlogin">/userlogin.jsp</result>
+			<result name="adminlogin">/adminlogin.jsp</result>
+			<result name="error">/error.jsp</result>
+	  </global-results> 
+		<action name="Register" class="org.bench4q.web.action.RegisterAction" >
+		  <result name="success">/registersucc.jsp</result>
+          <result name="failed">/register.jsp</result>
+		</action>
+	</package>
+</struts>
