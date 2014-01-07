@@ -8,9 +8,10 @@ import javax.xml.bind.Unmarshaller;
 
 import org.bench4q.web.communication.HttpRequester.HttpResponse;
 import org.bench4q.web.model.monitor.ProcessorModel;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+@Controller
 public class ProcessorController extends BaseController {
 	private String baseUrl = this.getMasterIP() + "monitorController";
 
@@ -26,7 +27,7 @@ public class ProcessorController extends BaseController {
 	@RequestMapping("getProcessorStatus")
 	@ResponseBody
 	ProcessorModel getProcessorModel(){
-		System.out.println("enter getMeoryStatus");
+		System.out.println("enter getProcessorStatus");
 		HttpResponse httpResponse = null;
 		ProcessorModel processorModel;
 		try {

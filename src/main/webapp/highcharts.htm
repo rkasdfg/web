@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Highstock Example</title>
+
+		<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+		<script type="text/javascript">
+$(function() {
+	
+	Highcharts.setOptions({
+		global : {
+			useUTC : false
+		}
+	});
+	initialcharts();
+	// Create the chart
+
+});
+
+function test(){
+	var chart = $('.ipcontainer').highcharts(),
+        	i = 0,
+			series = chart.series[0];
+
+	var x = (new Date()).getTime(), // current time
+						y=Math.round(Math.random() * 100);
+			series.addPoint([x, y], true, false);
+
+		//chart.redraw();
+}
+
+		</script>
+	</head>
+	<body>
+<script src="highcharts/highstock.js"></script>
+<script src="highcharts/exporting.js"></script>
+<script src="js/result.js"></script>
+
+<div class="ipcontainer" style="height: 300px;"></div>
+<input type="button" value="nihao" onclick="test()"></input>
+
+	</body>
+</html>

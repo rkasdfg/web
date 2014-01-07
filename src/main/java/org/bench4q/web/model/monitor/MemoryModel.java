@@ -1,5 +1,8 @@
 package org.bench4q.web.model.monitor;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name="Memory")
 public class MemoryModel {
 	private long pagesPerSecond;
 	private long pagesInputPerSecond;

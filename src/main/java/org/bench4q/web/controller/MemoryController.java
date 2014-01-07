@@ -8,9 +8,10 @@ import javax.xml.bind.Unmarshaller;
 
 import org.bench4q.web.communication.HttpRequester.HttpResponse;
 import org.bench4q.web.model.monitor.MemoryModel;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+@Controller
 public class MemoryController extends BaseController  {
 	private String baseUrl = this.getMasterIP() + "monitorController";
 

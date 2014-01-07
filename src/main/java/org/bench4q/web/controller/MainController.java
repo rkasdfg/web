@@ -7,14 +7,14 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
 import org.bench4q.web.communication.HttpRequester.HttpResponse;
-import org.bench4q.web.model.monitor.MemoryModel;
-import org.bench4q.web.model.monitor.NetworkInterfaceModel;
+import org.bench4q.web.model.monitor.MainModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
-public class NetworkController extends BaseController {
-	private String baseUrl = this.getMasterIP() + "monitorController";
+public class MainController extends BaseController {
+	private String baseUrl = this.getMasterIP() + "mainController";
 
 	public String getBaseUrl() {
 		return baseUrl;
@@ -23,16 +23,14 @@ public class NetworkController extends BaseController {
 	public void setBaseUrl(String baseUrl) {
 		this.baseUrl = baseUrl;
 	}
-
-
-	@RequestMapping("getNetworkStatus")
+	@RequestMapping("getAllStatus")
 	@ResponseBody
-	NetworkInterfaceModel getMemoryModel(){
-		System.out.println("enter getNetworkStatus");
+	MainModel getMainModel(@RequestParam String hosts){
+		System.out.println("enter getAllStatus");
 		HttpResponse httpResponse = null;
-		NetworkInterfaceModel networkInterfaceModel;
+		MainModel mainModel;
 		try {
-			httpResponse = this.getHttpRequester().sendGet(this.masterIP+"/Monitor/Network",
+			httpResponse = this.getHttpRequester().sendGet(hosts+"/Monitor/All",
 					null,
 					null);
 			if (httpResponse == null){
@@ -40,7 +38,7 @@ public class NetworkController extends BaseController {
 				return null;
 			}
 			
-			networkInterfaceModel = extractNetworkInterfaceModel(httpResponse
+			mainModel = extractMainModel(httpResponse
 					.getContent());
 
 		} catch (Exception e) {
@@ -49,16 +47,16 @@ public class NetworkController extends BaseController {
 							+ e.toString());
 			return null;
 		}
-		return networkInterfaceModel;
+		return mainModel;
 	}
 	
 
-	private NetworkInterfaceModel extractNetworkInterfaceModel(String content)
+	private MainModel extractMainModel(String content)
 			throws JAXBException {
-		NetworkInterfaceModel resultModel = new NetworkInterfaceModel();
+		MainModel resultModel = new MainModel();
 		Unmarshaller ummarshaller = JAXBContext.newInstance(
 				resultModel.getClass()).createUnmarshaller();
-		resultModel = (NetworkInterfaceModel) ummarshaller
+		resultModel = (MainModel) ummarshaller
 				.unmarshal(new ByteArrayInputStream(content.getBytes()));
 		return resultModel;
 	}
