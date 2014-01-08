@@ -124,7 +124,7 @@
 				<div class="CNLTreeMenu" id="CNLTreeMenu1">
 					<a id="AllOpen_1" href="#" onClick="MyCNLTreeMenu1.SetNodes(0);Hd(this);Sw('AllClose_1');">Unfold All</a><a id="AllClose_1" href="#" onClick="MyCNLTreeMenu1.SetNodes(1);Hd(this);Sw('AllOpen_1');" style="display:none;">Fold All</a>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<a href="#" onclick="addhost()">Add Host</a>
+					<a href="#" onclick="$('#myModal').modal('show');">Add Host</a>
 					
 					<ul class="nav nav-tabs nav-stacked main-menu">
 					
@@ -136,8 +136,8 @@
 						<ul> <!--Css样式在bootstrap-cerulean.css最后几行，属性结果js代码位于tree.js中-->
 						<li><a href="#"><i class="icon-home"></i><span class="hidden-tablet">cpu</span></a>
 						  <ul>
-							<li class="Child"><a href="#" onclick="initialcharts()">cpu1</a></li>
-							<li class="Child"><a href="#">cpu2</a></li>
+							<li class="Child"><a href="#" onclick="createcharts()">cpu1</a></li>
+							<li class="Child"><a href="#" chart="cpu2" onclick="selectcharts($(this))">cpu2</a></li>
 						  </ul>
 						</li>
 						<li><a class="ajax-link" href="index.html"><i class="icon-home"></i><span class="hidden-tablet">memory</span></a>
@@ -200,34 +200,38 @@
 						<a href="#">Home</a> <span class="divider">/</span>
 					</li>
 					<li>
-						<a href="#">Dashboard</a>
+						<a onclick="addhosthtml()" href="#">Dashboard</a>
 					</li>
 				</ul>
 			</div>
+			<div id="resultcharts">
+			<!-- 
 			<div class="host" >
-				<div class="ip" style="display:none">
-					<div class="ipcontainer" style="height: 300px; width: 600px;"></div>
-					<div class="ipcontainer" style="height: 300px; width: 600px;"></div>
-					<div class="ipcontainer" style="height: 300px; width: 600px;"></div>
+				<div class="cpu" style="display:none" >
+					<div class="cpuutil" style="height: 300px;"></div>
+					<div class="cpusystimeper" style="height: 300px;"></div>
+					<div class="cpuusertimeper" style="height: 300px;"></div>
 				</div>
-				<div class="ip" style="display:none">
-					<div class="ipcontainer" style="height: 300px; width: 600px;"></div>
-					<div class="ipcontainer" style="height: 300px; width: 600px;"></div>
-					<div class="ipcontainer" style="height: 300px; width: 600px;"></div>
+				<div class="cpu" style="display:none" >
+					<div class="cpuutil" style="height: 300px;"></div>
+					<div class="cpusystimeper" style="height: 300px;"></div>
+					<div class="cpuusertimeper" style="height: 300px;"></div>
 				</div>
-				<div class="memory" style="display:none">
-					<div class="ipcontainer" style="height: 300px;"></div>
-					<div class="ipcontainer" style="height: 300px;"></div>
-					<div class="ipcontainer" style="height: 300px;"></div>
-					<div class="ipcontainer" style="height: 300px;"></div>
-					<div class="ipcontainer" style="height: 300px;"></div>
+				<div class="memory"  style="display:none">
+					<div class="mempage" style="height: 300px;"></div>
+					<div class="mempagein" style="height: 300px;"></div>
+					<div class="mempageout" style="height: 300px;"></div>
+					<div class="memavail" style="height: 300px;"></div>
+					<div class="memusedper" style="height: 300px;"></div>
+					<div class="memtotal" style="height: 300px;"></div>
 				</div>
-				<div class="disk" style="display:none">
-					<div class="ipcontainer" style="height: 300px;"></div>
-					<div class="ipcontainer" style="height: 300px;"></div>
-					<div class="ipcontainer" style="height: 300px;"></div>
+				<div class="disk">
+					<div class="diskread" style="height: 300px;"></div>
+					<div class="diskwrite" style="height: 300px;"></div>
+					<div class="discur" style="height: 300px;"></div>
 				</div>
-			
+			</div>
+			-->
 			</div>
 			<input type="button" value="nihao" onclick="addhostpoints()"></input>
 			<input type="button" value="buhao" onclick="showcharts()"></input>
@@ -246,11 +250,16 @@
 				<h3>Settings</h3>
 			</div>
 			<div class="modal-body">
-				<p>Here settings can be configured...</p>
+				<div class="control-group">
+					<label class="control-label" for="focusedInput">IP</label>
+					<div class="controls">
+					<input class="input-xlarge focused" id="focusedInput" type="text" value="127.0.0.1">
+					</div>
+				</div>
 			</div>
 			<div class="modal-footer">
 				<a href="#" class="btn" data-dismiss="modal">Close</a>
-				<a href="#" class="btn btn-primary">Save changes</a>
+				<a href="#" class="btn btn-primary" data-dismiss="modal" onclick='addhosthtml()'>OK</a>
 			</div>
 		</div>
 
@@ -335,32 +344,65 @@
 	<script src="highcharts/highstock.js"></script>
 	<script src="highcharts/exporting.js"></script>
 	<script type="text/javascript">
+	
+	
+	function selectcharts(chartsclass){
+		var addr = chartsclass.attr("chart");
+		$("div[charttype='snode']").each(function(){
+			$(this).hide();
+		});
+		var selector = "#"+addr;
+		$(selector).show();
+	}
+	
 	function addhostpoints()
 	{
 		var hosts="127.0.0.1:5556";
+		var host ="#127_0_0_1";
+		setInterval(function(){
 		$.post("getAllStatus",{hosts:hosts}, function(data){
 		var cpumodel = data.processorModel.processorModelList;
 		var memorymodel = data.memoryModel;
 		var physicaldiskmodel = data.physicalDiskModel;
 		var x = (new Date()).getTime();
+		//cpu
 		for(var i=0; i<cpumodel.length; i++)
 		{
 			
-			var selector1 = ".hosts .ip .ipcontainer:eq("+(i*3)+")";
-			var selector2 = ".hosts .ip .ipcontainer:eq("+(i*3+1)+")";
-			var selector3 = ".hosts .ip .ipcontainer:eq("+(i*3+2)+")";
+			var selector1 = host+" .cpuutil:eq("+(i)+")";
+			var selector2 = host+" .cpusystimeper:eq("+(i)+")";
+			var selector3 = host+" .cpuusertimeper:eq("+(i)+")";
 			var processorTimePercent = cpumodel[i].processorTimePercent;
 			var userTimePercent = cpumodel[i].userTimePercent;
 			var privilegedTimePercent = cpumodel[i].privilegedTimePercent;
 			$(selector1).highcharts().series[0].addPoint([x, processorTimePercent], true, false);
-			$(selector2).highcharts().series[0].addPoint([x, userTimePercent], true, false);
-			$(selector3).highcharts().series[0].addPoint([x, privilegedTimePercent], true, false);
+			$(selector2).highcharts().series[0].addPoint([x, privilegedTimePercent], true, false);
+			$(selector3).highcharts().series[0].addPoint([x, userTimePercent], true, false);
 		}
-		alert(memorymodel.memoryUsedPercent);
-		alert(physicaldiskmodel.diskReadRate);
-		alert(cpumodel.processorModelList.length);
-		//alert(physicaldiskmodel.diskReadRate);
-							},"json");
+		var selector;
+		//memory
+		selector = host + " .mempage";
+		$(selector).highcharts().series[0].addPoint([x, memorymodel.pagesPerSecond], true, false);
+		selector = host + " .mempagein";
+		$(selector).highcharts().series[0].addPoint([x, memorymodel.pagesInputPerSecond], true, false);
+		selector = host + " .mempageout";
+		$(selector).highcharts().series[0].addPoint([x, memorymodel.pagesOutputPerSecond], true, false);
+		selector = host + " .memavail";
+		$(selector).highcharts().series[0].addPoint([x, memorymodel.availableKiloBytes], true, false);
+		selector = host + " .memusedper";
+		$(selector).highcharts().series[0].addPoint([x, memorymodel.memoryUsedPercent], true, false);
+		selector = host + " .memtotal";
+		$(selector).highcharts().series[0].addPoint([x, memorymodel.totalKiloBytes], true, false);
+		//disk		
+		selector = host + " .diskread";
+		$(selector).highcharts().series[0].addPoint([x, physicaldiskmodel.diskReadRate], true, false);
+		selector = host + " .diskwrite";
+		$(selector).highcharts().series[0].addPoint([x, physicaldiskmodel.diskWriteRate], true, false);
+		selector = host + " .discur";
+		$(selector).highcharts().series[0].addPoint([x, physicaldiskmodel.curDiskQueLength], true, false);
+		
+		},"json");
+		},2000);
 
 		
 	}
