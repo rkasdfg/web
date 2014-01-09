@@ -10,6 +10,7 @@ import org.bench4q.web.communication.HttpRequester.HttpResponse;
 import org.bench4q.web.model.monitor.ProcessorModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class ProcessorController extends BaseController {
@@ -26,12 +27,12 @@ public class ProcessorController extends BaseController {
 
 	@RequestMapping("getProcessorStatus")
 	@ResponseBody
-	ProcessorModel getProcessorModel(){
+	ProcessorModel getProcessorModel(@RequestParam String hosts){
 		System.out.println("enter getProcessorStatus");
 		HttpResponse httpResponse = null;
 		ProcessorModel processorModel;
 		try {
-			httpResponse = this.getHttpRequester().sendGet(this.masterIP+"/Monitor/Processor",
+			httpResponse = this.getHttpRequester().sendGet(hosts+"/Monitor/Processor",
 					null,
 					null);
 			if (httpResponse == null){

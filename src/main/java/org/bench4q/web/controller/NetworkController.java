@@ -7,7 +7,6 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
 import org.bench4q.web.communication.HttpRequester.HttpResponse;
-import org.bench4q.web.model.monitor.MemoryModel;
 import org.bench4q.web.model.monitor.NetworkInterfaceModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +44,7 @@ public class NetworkController extends BaseController {
 
 		} catch (Exception e) {
 			System.out
-					.println("The response of  getting memoyStatus is wrong: "
+					.println("The response of  getting networkStatus is wrong: "
 							+ e.toString());
 			return null;
 		}

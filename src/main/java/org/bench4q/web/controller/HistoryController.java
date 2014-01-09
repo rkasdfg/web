@@ -26,10 +26,11 @@ public class HistoryController extends BaseController {
 	@ResponseBody List<MainModel> getHistory()
 	{
 		String hosts = "127.0.0.1:5556";
-		String starttime = "2014-01-07-23-00-10";
+		String starttime = "2014-01-09-16-10-00";
 		Date date = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 		String endtime = dateFormat.format(date);
+		endtime = "2014-01-09-16-13-00";
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("starttime", starttime);
 		params.put("endtime", endtime);

@@ -10,6 +10,7 @@ import org.bench4q.web.communication.HttpRequester.HttpResponse;
 import org.bench4q.web.model.monitor.PhysicalDiskModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -28,13 +29,13 @@ public class PhysicalDiskController extends BaseController {
 
 	@RequestMapping("getPhysicalDataStatus")
 	@ResponseBody
-	public PhysicalDiskModel getPhysicalDiskStatus(){
+	public PhysicalDiskModel getPhysicalDiskStatus(@RequestParam String hosts){
 		
 		System.out.println("enter getPhysicalDisk");
 		HttpResponse httpResponse = null;
 		PhysicalDiskModel physicalDiskModel;
 		try {
-			httpResponse = this.getHttpRequester().sendGet(this.masterIP+"/Monitor/PhysicalDisk",
+			httpResponse = this.getHttpRequester().sendGet(hosts+"/Monitor/PhysicalDisk",
 					null,
 					null);
 			if (httpResponse == null){

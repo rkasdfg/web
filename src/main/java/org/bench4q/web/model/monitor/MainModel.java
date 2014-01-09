@@ -18,6 +18,7 @@ public class MainModel {
 	private MemoryModel memoryModel;
 	private PhysicalDiskModel physicalDiskModel;
 	private NetworkInterfaceModel networkInterfaceModel;
+	@XmlElement
 	public String getDate() {
 		return date;
 	}

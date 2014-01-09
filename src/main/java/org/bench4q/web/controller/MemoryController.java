@@ -10,6 +10,7 @@ import org.bench4q.web.communication.HttpRequester.HttpResponse;
 import org.bench4q.web.model.monitor.MemoryModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class MemoryController extends BaseController  {
@@ -26,12 +27,12 @@ public class MemoryController extends BaseController  {
 
 	@RequestMapping("getMemoryStatus")
 	@ResponseBody
-	MemoryModel getMemoryModel(){
+	MemoryModel getMemoryModel(@RequestParam String hosts){
 		System.out.println("enter getMeoryStatus");
 		HttpResponse httpResponse = null;
 		MemoryModel memoryModel;
 		try {
-			httpResponse = this.getHttpRequester().sendGet(this.masterIP+"/Monitor/Memory",
+			httpResponse = this.getHttpRequester().sendGet(hosts+"/Monitor/Memory",
 					null,
 					null);
 			if (httpResponse == null){

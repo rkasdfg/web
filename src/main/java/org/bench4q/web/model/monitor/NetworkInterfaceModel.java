@@ -1,18 +1,30 @@
 package org.bench4q.web.model.monitor;
-import java.util.List;
+
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.bench4q.web.model.monitor.NetworkInterfaceModelChild;
+
 @XmlRootElement(name = "NetworkInterface")
 public class NetworkInterfaceModel {
-	private List<NetworkInterfaceModelChild> networkList;
-
-	public List<NetworkInterfaceModelChild> getNetworkList() {
-		return networkList;
+	private double kiloBytesTotalPerSecond;
+	private double kiloBytesReceivedPerSecond;
+	private double kiloBytesSentPerSecond;
+	public double getKiloBytesTotalPerSecond() {
+		return kiloBytesTotalPerSecond;
 	}
-
-	public void setNetworkList(List<NetworkInterfaceModelChild> networkList) {
-		this.networkList = networkList;
+	public void setKiloBytesTotalPerSecond(double kiloBytesTotalPerSecond) {
+		this.kiloBytesTotalPerSecond = kiloBytesTotalPerSecond;
+	}
+	public double getKiloBytesReceivedPerSecond() {
+		return kiloBytesReceivedPerSecond;
+	}
+	public void setKiloBytesReceivedPerSecond(double kiloBytesReceivedPerSecond) {
+		this.kiloBytesReceivedPerSecond = kiloBytesReceivedPerSecond;
+	}
+	public double getKiloBytesSentPerSecond() {
+		return kiloBytesSentPerSecond;
+	}
+	public void setKiloBytesSentPerSecond(double kiloBytesSentPerSecond) {
+		this.kiloBytesSentPerSecond = kiloBytesSentPerSecond;
 	}
 }

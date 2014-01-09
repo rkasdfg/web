@@ -11,7 +11,7 @@ public class ListMainModel {
 	private List<MainModel> historylist;
 	
 	@XmlElementWrapper(name="histories")
-	@XmlElement(type=MainModel.class) 
+	@XmlElement(name="history",type=MainModel.class) 
 	public List<MainModel> getHistorylist() {
 		return historylist;
 	}
