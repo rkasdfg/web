@@ -1,4 +1,4 @@
-
+@import url(https://fonts.googleapis.com/css?family=Shojumaru);
 
 select{
 background-color:#fff;
@@ -44,7 +44,7 @@ right: -5px;
 line-height: 16px;
 height: 16px;
 padding: 0 5px;
-font-family: Arial;
+font-family: Arial, sans-serif;
 color: white !important;
 text-shadow: 0 1px 
 hsla(0, 0%, 0%, 0.25);
@@ -90,6 +90,7 @@ background-color: #FABB3D;
 background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, hsl(40, 95%, 76%)), color-stop(100%, hsl(40, 95%, 61%)));
 background-image: -webkit-linear-gradient(top, hsl(40, 95%, 76%), hsl(40, 95%, 61%));
 background-image: -moz-linear-gradient(top, hsl(40, 95%, 76%), hsl(40, 95%, 61%));
+background-image: -ms-linear-gradient(top, hsl(40, 95%, 76%), hsl(40, 95%, 61%));
 background-image: -o-linear-gradient(top, hsl(40, 95%, 76%), hsl(40, 95%, 61%));
 background-image: linear-gradient(top, hsl(40, 95%, 76%), hsl(40, 95%, 61%));
 }
@@ -119,6 +120,9 @@ cursor:move;
 float: right;
 width: 80%;
 }
+
+
+
 .box{
 border: 1px solid #DEDEDE;
 border-radius:3px;
@@ -160,6 +164,7 @@ width:auto;
 clear:none;
 float:left;
 line-height:25px;
+white-space: nowrap;
 }
 .box-header h3{
 font-size:13px;
@@ -167,6 +172,7 @@ width:auto;
 clear:none;
 float:left;
 line-height:25px;
+white-space: nowrap;
 }
 .box-header h2 > i{
 margin-top:1px;
@@ -189,28 +195,7 @@ margin-left:-4.5px;
 padding:10px;
 }
 
-.box-introduction{
-padding:1px;
-}
 
-.div-left{
-	float:left;
-	
-}
-
-.div-right{
-	float:right;
-	
-}
-.dataText{
-	padding-top:50px;
-	padding-left:20px;
-
-
-	
-
-	
-}
 .btn-round{
 border-radius: 40px;
 -webkit-border-radius: 40px;
@@ -360,7 +345,7 @@ margin-right:-2px;
 margin-left:-2px;
 }
 .brand{
-font-family:  Arial; 
+font-family: 'Shojumaru', cursive, Arial, serif; 
 letter-spacing:2px;
 text-shadow:1px 1px 5px rgba(0, 0, 0, 0.5);
 width:166px;

@@ -122,12 +122,14 @@
 			<div class="span2 main-menu-span">
 				<div class="well nav-collapse sidebar-nav">
 				<div class="CNLTreeMenu" id="CNLTreeMenu1">
-					<a id="AllOpen_1" href="#" onClick="MyCNLTreeMenu1.SetNodes(0);Hd(this);Sw('AllClose_1');">Unfold All</a><a id="AllClose_1" href="#" onClick="MyCNLTreeMenu1.SetNodes(1);Hd(this);Sw('AllOpen_1');" style="display:none;">Fold All</a>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<!-- <a id="AllOpen_1" href="#" onClick="MyCNLTreeMenu1.SetNodes(0);Hd(this);Sw('AllClose_1');">Unfold All</a><a id="AllClose_1" href="#" onClick="MyCNLTreeMenu1.SetNodes(1);Hd(this);Sw('AllOpen_1');" style="display:none;">Fold All</a>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
 					<a href="#" onclick="$('#myModal').modal('show');">Add Host</a>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<a href="#" onclick="initcustomizeModal();">Customize</a>
 					
 					<ul class="nav nav-tabs nav-stacked main-menu">
-					
+
 					<!-- <li>
 					<input class="t host" id="host1" readonly value="ip1" onclick="edit('host1','submit1')" onblur="def('host1','submit1')" />
 					<img src="img/pencil.png" alt="编辑" border="0" style="display:none;" id="submit1" onclick="show('host1','submit1')" />
@@ -232,8 +234,7 @@
 			</div>
 			-->
 			</div>
-			<input type="button" value="nihao" onclick="addhostpoints()"></input>
-			<input type="button" value="buhao" onclick="showcharts()"></input>
+			
 
 		  
        
@@ -249,6 +250,7 @@
 				<h3>Settings</h3>
 			</div>
 			<div class="modal-body">
+			<form class="form-horizontal">
 					<div class="control-group">
 					<label class="control-label" for="selecttype">type</label>
 					<div class="controls">
@@ -272,7 +274,7 @@
 					</div>
 					</div>
 				</div>
-				
+				</form>
 			</div>
 				
 			<div class="modal-footer">
@@ -280,6 +282,70 @@
 				<a href="#" class="btn btn-primary" data-dismiss="modal" onclick='addhosthtml()'>OK</a>
 			</div>
 		</div>
+		
+		
+		<div class="modal hide fade" id="customizeModal">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h3>Settings</h3>
+			</div>
+			<div class="modal-body">
+			<form class="form-horizontal">
+			<fieldset>
+			<div class="control-group">
+				<label class="control-label" for="hostselect">Host Select</label>
+				<div class="controls">
+				  <select id="hostselect">
+					<option>Option 1</option>
+					<option>Option 2</option>
+					<option>Option 3</option>
+					<option>Option 4</option>
+					<option>Option 5</option>
+				  </select>
+				</div>
+			  </div>
+			  <div class="control-group">
+			  <label class="control-label" for="itemselect">Item Select</label>
+				<div class="controls">
+				  <select id="itemselect">
+					<option value="cpu">cpu</option>
+					<option value="memory">memory</option>
+					<option value="disk">disk</option>
+					<option value="network">network</option>
+				  </select>
+				</div>
+			  </div>
+			  <div class="control-group">
+			  <label class="control-label" for="chartselect">Charts Select</label>
+				<div class="controls">
+				  <select id="chartselect">
+				  </select>
+				</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="selectresult">Select Result</label>
+					<div class="controls">
+					  <select id="selectresult" multiple data-rel="chosen">
+
+					  </select>
+					</div>
+				  </div>
+
+				</fieldset>
+				</form>
+				
+			</div>
+			
+				
+			<div class="modal-footer">
+				<a href="#" class="btn btn-primary" onclick='additem()'>add</a>
+				<a href="#" class="btn" data-dismiss="modal">Close</a>
+				<a href="#" class="btn btn-primary" data-dismiss="modal" onclick='submititem()'>submit</a>
+			</div>
+		</div>
+		
+		
+		
 
 		<footer>
 			<p class="pull-left">&copy; <a href="http://usman.it" target="_blank">Muhammad Usman</a> 2012</p>

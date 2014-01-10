@@ -1,4 +1,4 @@
-
+@import url(https://fonts.googleapis.com/css?family=Ubuntu);
 /*!
  * Bootstrap v2.0.4
  *
@@ -134,7 +134,7 @@ textarea {
 }
 body {
   margin: 0;
-  font-family: Tahoma, sans-serif;
+  font-family: 'Ubuntu', Tahoma, sans-serif;
   font-size: 13px;
   line-height: 18px;
   color: #333333;
@@ -628,7 +628,7 @@ input,
 button,
 select,
 textarea {
-  font-family:  Tahoma, sans-serif;
+  font-family: 'Ubuntu', Tahoma, sans-serif;
 }
 label {
   display: block;
@@ -3084,7 +3084,7 @@ input[type="submit"].btn.btn-mini {
 }
 .navbar-search .search-query {
   padding: 4px 9px;
-  font-family:  Tahoma, sans-serif;
+  font-family: 'Ubuntu', Tahoma, sans-serif;
   font-size: 13px;
   font-weight: normal;
   line-height: 1;

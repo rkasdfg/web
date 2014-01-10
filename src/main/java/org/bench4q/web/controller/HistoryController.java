@@ -16,7 +16,6 @@ import org.bench4q.web.model.monitor.ListMainModel;
 import org.bench4q.web.model.monitor.MainModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -26,11 +25,11 @@ public class HistoryController extends BaseController {
 	@ResponseBody List<MainModel> getHistory()
 	{
 		String hosts = "127.0.0.1:5556";
-		String starttime = "2014-01-09-16-10-00";
+		String starttime = "2014-01-09-21-10-00";
 		Date date = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 		String endtime = dateFormat.format(date);
-		endtime = "2014-01-09-16-13-00";
+		endtime = "2015-01-01-00-00-00";
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("starttime", starttime);
 		params.put("endtime", endtime);

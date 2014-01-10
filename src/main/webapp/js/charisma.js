@@ -4,11 +4,6 @@ $(document).ready(function(){
 		if($($(this))[0].href==String(window.location))
 			$(this).parent().addClass('active');
 	});
-	Highcharts.setOptions({
-		global : {
-			useUTC : false
-		}
-	});
 	//animating menus on hover
 	$('ul.main-menu li:not(.nav-header)').hover(function(){
 		$(this).animate({'margin-left':'+=5'},300);
