@@ -6,6 +6,12 @@ function additem()
 	$("#selectresult").append('<option ondblclick="$(this).remove()" value="'+value+'">'+text+'</option>');
 
 }
+function deletechart(selector)
+{
+	var chartselector = '#'+selector.val();
+	$(chartselector).remove();
+	selector.parent().remove();
+}
 $("#selectresult  option").dblclick(function(){
 	$(this).remove();
 });
@@ -89,9 +95,15 @@ $("#itemselect").change(function(){
 $("#selecttype").change(function(){
 	var test = $("#selecttype").val();
 	if(test=="false")
+	{
 		$("#timediv").hide();
+		$("#historydiv").show();
+	}
 	else
+	{
+		$("#historydiv").hide();
 		$("#timediv").show();
+	}
 });
 
 
@@ -196,14 +208,21 @@ function addhosthtml(){
 	var type = $("#selecttype").val();
 	var modifiedhost = host.replace(/\./g,'_');
 	if(type=="false")
+	{
+		if($("#starttime").val()==""||$("#endtime").val()==""||$("#starttime").val()>$("#endtime").val())
+		{
+			alert("wrong time!!!");
+			return;
+		}
 		modifiedhost += "history";
+	}
 			
 	
 	var start = MyCNLTreeMenu1.AllNodes.length;
 	var cpunum;
 	$.post("getProcessorStatus",{hosts:host+":5556"},function(data){
 		cpunum =  data.processorModelList.length;
-		var htmlelement='<li><input class="t treehost" readonly value="'+modifiedhost+'"  /><ul>'+
+		var htmlelement='<li><input class="t treehost" ondblclick="deletechart($(this))" readonly value="'+modifiedhost+'"  /><ul>'+
 		'<li><a href="#" ><span class="hidden-tablet">cpu</span></a><ul>';
 		for(var i=0; i<cpunum; i++)
 			htmlelement += '<li class="Child"><a onclick="selectcharts($(this))" chart="'+modifiedhost+' .cpu'+i+'" href="#">cpu'+i+'</a></li>';
@@ -331,9 +350,23 @@ function addhostpoints(hosts,host,time)
 
 function addhistorypoints(hosts,host)
 {
+	
+	var stdate = $("#starttime").val().replace("T","-");
+	stdate = stdate.replace(":","-");
+	stdate = stdate+'-00';
+	var edate = $("#endtime").val().replace("T","-");
+	edate = edate.replace(":","-");
+	edate = edate+'-00';
+
+	
 	host = "#"+host;
 	hosts += ":5556";
-	$.post("getHistory",{hosts:hosts}, function(data){
+	$.post("getHistory",{hosts:hosts,starttime:stdate,endtime:edate}, function(data){
+	if($.isEmptyObject(data))
+	{
+		alert("no histroy");
+		return;
+	}
 	for(var j=0; j<data.length; j++)
 	{	
 	var cpumodel = data[j].processorModel.processorModelList;

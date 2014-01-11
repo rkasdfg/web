@@ -1,8 +1,7 @@
 package org.bench4q.web.controller;
 
 import java.io.ByteArrayInputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,20 +15,21 @@ import org.bench4q.web.model.monitor.ListMainModel;
 import org.bench4q.web.model.monitor.MainModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class HistoryController extends BaseController {
 
 	@RequestMapping("getHistory")
-	@ResponseBody List<MainModel> getHistory()
+	@ResponseBody List<MainModel> getHistory(@RequestParam String hosts, @RequestParam String starttime, @RequestParam String endtime)
 	{
-		String hosts = "127.0.0.1:5556";
-		String starttime = "2014-01-09-21-10-00";
+		/*String hosts = "127.0.0.1:5556";
+		String starttime = "2014-1-9-21-10-0";
 		Date date = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 		String endtime = dateFormat.format(date);
-		endtime = "2015-01-01-00-00-00";
+		endtime = "2015-01-01-00-00-00";*/
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("starttime", starttime);
 		params.put("endtime", endtime);
@@ -53,7 +53,13 @@ public class HistoryController extends BaseController {
 							+ e.toString());
 			return null;
 		}
-		return listMainModel.getHistorylist();
+		if (listMainModel.getHistorylist().isEmpty()) {
+			return null;
+			
+		} else {
+			return listMainModel.getHistorylist();
+		}
+		
 		
 	}
 	private ListMainModel extractListMainModel(String content)
