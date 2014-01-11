@@ -221,6 +221,11 @@ function addhosthtml(){
 	var start = MyCNLTreeMenu1.AllNodes.length;
 	var cpunum;
 	$.post("getProcessorStatus",{hosts:host+":5556"},function(data){
+		if($.isEmptyObject(data))
+		{
+			alert("no host");
+			return;
+		}
 		cpunum =  data.processorModelList.length;
 		var htmlelement='<li><input class="t treehost" ondblclick="deletechart($(this))" readonly value="'+modifiedhost+'"  /><ul>'+
 		'<li><a href="#" ><span class="hidden-tablet">cpu</span></a><ul>';
