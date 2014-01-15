@@ -26,11 +26,11 @@
 		</profile>
 	</profiles>
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>bench4q-web</groupId>
-	<artifactId>bench4q-web</artifactId>
+	<groupId>web</groupId>
+	<artifactId>web</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>bench4q-web Maven Webapp</name>
+	<name>web Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
 		<dependency>
